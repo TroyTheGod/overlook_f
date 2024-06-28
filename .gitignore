@@ -44,3 +44,6 @@ app.*.map.json
 
 # fvm
 .fvm/
+
+# ignore launch.json for hiding apikey
+.vscode/launch.json
