@@ -11,7 +11,7 @@ class WeatherDto with _$WeatherDto {
     @JsonKey(name: 'cod') String? cod,
     @JsonKey(name: 'message') int? message,
     @JsonKey(name: 'cnt') int? cnt,
-    @JsonKey(name: 'list') List<List>? list,
+    @JsonKey(name: 'list') List<WeatherList>? list,
     @JsonKey(name: 'city') City? city,
   }) = _WeatherDto;
 

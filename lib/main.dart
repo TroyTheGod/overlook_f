@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:over_look_f/feature/weather/provider/weather_notifier.dart';
 
 void main() {
   runApp(
@@ -41,20 +42,17 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: Consumer(
+        builder: (context, ref, child) {
+          final weather = ref.watch(weatherNotifierProvider);
+          return switch (weather) {
+            AsyncData(:final value) =>
+              SingleChildScrollView(child: Text(value.toString())),
+            AsyncError() => const Text('Error'),
+            _ => const CircularProgressIndicator(),
+          };
+        },
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Increment',

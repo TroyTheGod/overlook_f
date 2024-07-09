@@ -27,7 +27,7 @@ mixin _$WeatherDto {
   @JsonKey(name: 'cnt')
   int? get cnt => throw _privateConstructorUsedError;
   @JsonKey(name: 'list')
-  List<List>? get list => throw _privateConstructorUsedError;
+  List<WeatherList>? get list => throw _privateConstructorUsedError;
   @JsonKey(name: 'city')
   City? get city => throw _privateConstructorUsedError;
 
@@ -47,7 +47,7 @@ abstract class $WeatherDtoCopyWith<$Res> {
       {@JsonKey(name: 'cod') String? cod,
       @JsonKey(name: 'message') int? message,
       @JsonKey(name: 'cnt') int? cnt,
-      @JsonKey(name: 'list') List<List>? list,
+      @JsonKey(name: 'list') List<WeatherList>? list,
       @JsonKey(name: 'city') City? city});
 
   $CityCopyWith<$Res>? get city;
@@ -88,7 +88,7 @@ class _$WeatherDtoCopyWithImpl<$Res, $Val extends WeatherDto>
       list: freezed == list
           ? _value.list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<List>?,
+              as List<WeatherList>?,
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ abstract class _$$WeatherDtoImplCopyWith<$Res>
       {@JsonKey(name: 'cod') String? cod,
       @JsonKey(name: 'message') int? message,
       @JsonKey(name: 'cnt') int? cnt,
-      @JsonKey(name: 'list') List<List>? list,
+      @JsonKey(name: 'list') List<WeatherList>? list,
       @JsonKey(name: 'city') City? city});
 
   @override
@@ -161,7 +161,7 @@ class __$$WeatherDtoImplCopyWithImpl<$Res>
       list: freezed == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
-              as List<List>?,
+              as List<WeatherList>?,
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -177,7 +177,7 @@ class _$WeatherDtoImpl with DiagnosticableTreeMixin implements _WeatherDto {
       {@JsonKey(name: 'cod') this.cod,
       @JsonKey(name: 'message') this.message,
       @JsonKey(name: 'cnt') this.cnt,
-      @JsonKey(name: 'list') final List<List>? list,
+      @JsonKey(name: 'list') final List<WeatherList>? list,
       @JsonKey(name: 'city') this.city})
       : _list = list;
 
@@ -193,10 +193,10 @@ class _$WeatherDtoImpl with DiagnosticableTreeMixin implements _WeatherDto {
   @override
   @JsonKey(name: 'cnt')
   final int? cnt;
-  final List<List>? _list;
+  final List<WeatherList>? _list;
   @override
   @JsonKey(name: 'list')
-  List<List>? get list {
+  List<WeatherList>? get list {
     final value = _list;
     if (value == null) return null;
     if (_list is EqualUnmodifiableListView) return _list;
@@ -261,7 +261,7 @@ abstract class _WeatherDto implements WeatherDto {
       {@JsonKey(name: 'cod') final String? cod,
       @JsonKey(name: 'message') final int? message,
       @JsonKey(name: 'cnt') final int? cnt,
-      @JsonKey(name: 'list') final List<List>? list,
+      @JsonKey(name: 'list') final List<WeatherList>? list,
       @JsonKey(name: 'city') final City? city}) = _$WeatherDtoImpl;
 
   factory _WeatherDto.fromJson(Map<String, dynamic> json) =
@@ -278,7 +278,7 @@ abstract class _WeatherDto implements WeatherDto {
   int? get cnt;
   @override
   @JsonKey(name: 'list')
-  List<List>? get list;
+  List<WeatherList>? get list;
   @override
   @JsonKey(name: 'city')
   City? get city;

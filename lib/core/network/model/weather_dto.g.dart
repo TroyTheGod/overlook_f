@@ -12,7 +12,7 @@ _$WeatherDtoImpl _$$WeatherDtoImplFromJson(Map<String, dynamic> json) =>
       message: (json['message'] as num?)?.toInt(),
       cnt: (json['cnt'] as num?)?.toInt(),
       list: (json['list'] as List<dynamic>?)
-          ?.map((e) => e as List<dynamic>)
+          ?.map((e) => WeatherList.fromJson(e as Map<String, dynamic>))
           .toList(),
       city: json['city'] == null
           ? null
