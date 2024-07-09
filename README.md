@@ -15,6 +15,16 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## API reference
+
+5 day / 3 hour forecast:
+
+- [x] https://openweathermap.org/forecast5
+
+Geocoding API:
+
+- [ ] https://openweathermap.org/api/geocoding-api
+
 ## TODO:
 
 - [ ] API call
