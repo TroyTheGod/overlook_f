@@ -23,7 +23,7 @@ samples, guidance on mobile development, and a full API reference.
 
 Geocoding API:
 
-- [ ] https://openweathermap.org/api/geocoding-api
+- [x] https://openweathermap.org/api/geocoding-api
 
 ## TODO:
 
