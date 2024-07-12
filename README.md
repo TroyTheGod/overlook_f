@@ -27,7 +27,17 @@ Geocoding API:
 
 ## TODO:
 
-- [ ] API call
-- [ ] get Geo location
+- [x] API call
+- [x] get Geo location
 - [ ] base ui
+  - [ ] weather display page
+    - [ ] draw temperature path
+    - [ ] draw risk of rain path XD
+  - [ ] select location page
+  - [ ] setting page
 - [ ] animation
+  - [ ] sun
+  - [ ] moon
+  - [ ] cloud
+  - [ ] rain
+  - [ ] maybe more
