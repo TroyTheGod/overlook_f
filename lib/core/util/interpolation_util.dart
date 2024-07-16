@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+
 class InterpolationUtil {
-  List<int> insertLinearInterpolatedValues(
+  static List<int> insertLinearInterpolatedValues(
     List<int> numbers,
     int numInsertions,
   ) {
@@ -22,5 +24,39 @@ class InterpolationUtil {
 
     result.add(numbers.last);
     return result;
+  }
+
+  static Color interpolateColor(List<Color> colors, double offset) {
+    if (colors.length < 2 || offset <= 0) {
+      return colors.first;
+    } else if (offset >= 1) {
+      return colors.last;
+    }
+
+    // 计算在哪个区间
+    double segment = offset * (colors.length - 1);
+    int startIndex = segment.floor();
+    int endIndex = segment.ceil();
+
+    if (startIndex < 0) {
+      startIndex = 0;
+    }
+    if (endIndex >= colors.length) {
+      endIndex = colors.length - 1;
+    }
+
+    // 计算插值
+    double t = segment - startIndex;
+    Color startColor = colors[startIndex];
+    Color endColor = colors[endIndex];
+    int interpolatedRed =
+        (startColor.red + (t * (endColor.red - startColor.red))).round();
+    int interpolatedGreen =
+        (startColor.green + (t * (endColor.green - startColor.green))).round();
+    int interpolatedBlue =
+        (startColor.blue + (t * (endColor.blue - startColor.blue))).round();
+
+    return Color.fromRGBO(
+        interpolatedRed, interpolatedGreen, interpolatedBlue, 1);
   }
 }
