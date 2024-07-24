@@ -6,7 +6,7 @@ class RiskOfRain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rainList = <double>[
-      1.0,
+      0.21,
       0.2,
       0.14,
       0.14,
@@ -19,7 +19,7 @@ class RiskOfRain extends StatelessWidget {
       0,
       1.0,
     ];
-    return _LineChart(data: rainList, maxHeight: 40.0);
+    return _LineChart(data: rainList, maxHeight: 50.0);
   }
 }
 
@@ -90,11 +90,9 @@ class _LineChartPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       );
       tp.layout();
-      if (i == 0) {
-        tp.paint(canvas, Offset(x, y - tp.height));
-      } else if (i == data.length - 1) {
+      if (i == data.length - 1) {
         tp.paint(canvas, Offset(x - tp.width, y - tp.height));
-      } else if (i % 2 == 0) {
+      } else if (i % 2 == 1) {
         tp.paint(canvas, Offset(x - tp.width / 2, y - tp.height));
       }
     }
