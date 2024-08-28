@@ -31,8 +31,9 @@ Geocoding API:
 - [x] get Geo location
 - [ ] base ui
   - [ ] weather display page
-    - [ ] draw temperature path
-    - [ ] draw risk of rain path XD
+    - [x] draw temperature path
+    - [x] draw risk of rain path XD
+    - [ ] draggable line(that orange one)
   - [ ] select location page
   - [ ] setting page
 - [ ] animation

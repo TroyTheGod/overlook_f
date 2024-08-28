@@ -63,6 +63,8 @@ class _LineChartPainter extends CustomPainter {
 
     Path path = Path();
     double width = size.width / (data.length - 1);
+    double verticalLineHeight = -1; // 初始化垂直线高度
+    double mockXPosition = 170;
 
     for (int i = 0; i < data.length; i++) {
       double x = i * width;
@@ -76,6 +78,18 @@ class _LineChartPainter extends CustomPainter {
         path.lineTo(x, maxHeight); // 将结束点连接到底部水平线
       } else {
         path.lineTo(x, y);
+      }
+
+      // 判断垂直线的位置，并记录该位置的y值作为垂直线的高度
+      if (x >= mockXPosition && verticalLineHeight == -1) {
+        // 获取垂直线位置附近的两个点
+        double previousX = (i - 1) * width;
+        double previousY = (1 - data[i - 1]) * maxHeight;
+        double nextY = y;
+
+        // 计算插值
+        double t = (mockXPosition - previousX) / (x - previousX);
+        verticalLineHeight = previousY + (nextY - previousY) * t;
       }
 
       // 显示数据值
@@ -106,6 +120,25 @@ class _LineChartPainter extends CustomPainter {
     linePaint.style = PaintingStyle.stroke;
     linePaint.color = color;
     canvas.drawPath(path, linePaint);
+
+    // 绘制垂直线
+    Paint verticalLinePaint = Paint()
+      ..color = Colors.orange.shade800
+      ..strokeWidth = 2.0;
+
+    canvas.drawLine(
+      Offset(mockXPosition, verticalLineHeight), // 从底部水平线开始
+      Offset(mockXPosition, maxHeight + 20), // 到折线图的高度
+      verticalLinePaint,
+    );
+
+    // 绘制垂直线的点
+    canvas.drawCircle(
+      Offset(mockXPosition,
+          verticalLineHeight + 1.5), // +1.5 因为radius = 3， 减一半圆心在折线上
+      3.0,
+      verticalLinePaint,
+    );
   }
 
   @override
