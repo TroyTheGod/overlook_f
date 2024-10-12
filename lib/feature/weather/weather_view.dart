@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:over_look_f/core/constant/dimen.dart';
+import 'package:over_look_f/feature/weather/provider/day_progress_notifier.dart';
 import 'package:over_look_f/feature/weather/widget/city_select_button.dart';
 import 'package:over_look_f/feature/weather/widget/date_select_area.dart';
 import 'package:over_look_f/feature/weather/widget/dragable_line.dart';
@@ -40,11 +42,17 @@ class WeatherView extends StatelessWidget {
           bottom: 300.0,
           child: RiskOfRain(),
         ),
-        Positioned(
-          left: 170.0 - Dimension.dragableLineWidth / 2,
-          bottom: 260.0,
-          child: const DragableLine(),
-        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final dayProgress = ref.watch(dayProgressNotifierProvider);
+            final xPosition = dayProgress * MediaQuery.of(context).size.width;
+            return Positioned(
+              left: xPosition - Dimension.dragableLineWidth / 2,
+              bottom: 260.0,
+              child: const DragableLine(),
+            );
+          },
+        )
       ],
     );
   }

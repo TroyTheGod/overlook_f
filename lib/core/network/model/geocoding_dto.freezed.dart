@@ -33,8 +33,12 @@ mixin _$GeocodingDto {
   @JsonKey(name: 'state')
   String? get state => throw _privateConstructorUsedError;
 
+  /// Serializes this GeocodingDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GeocodingDtoCopyWith<GeocodingDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -66,6 +70,8 @@ class _$GeocodingDtoCopyWithImpl<$Res, $Val extends GeocodingDto>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,6 +110,8 @@ class _$GeocodingDtoCopyWithImpl<$Res, $Val extends GeocodingDto>
     ) as $Val);
   }
 
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocalNamesCopyWith<$Res>? get localNames {
@@ -145,6 +153,8 @@ class __$$GeocodingDtoImplCopyWithImpl<$Res>
       _$GeocodingDtoImpl _value, $Res Function(_$GeocodingDtoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -249,12 +259,14 @@ class _$GeocodingDtoImpl with DiagnosticableTreeMixin implements _GeocodingDto {
             (identical(other.state, state) || other.state == state));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, name, localNames, lat, lon, country, state);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GeocodingDtoImplCopyWith<_$GeocodingDtoImpl> get copyWith =>
@@ -298,8 +310,11 @@ abstract class _GeocodingDto implements GeocodingDto {
   @override
   @JsonKey(name: 'state')
   String? get state;
+
+  /// Create a copy of GeocodingDto
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GeocodingDtoImplCopyWith<_$GeocodingDtoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -607,8 +622,12 @@ mixin _$LocalNames {
   @JsonKey(name: 'ur')
   String? get ur => throw _privateConstructorUsedError;
 
+  /// Serializes this LocalNames to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocalNames
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocalNamesCopyWith<LocalNames> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -780,6 +799,8 @@ class _$LocalNamesCopyWithImpl<$Res, $Val extends LocalNames>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocalNames
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1696,6 +1717,8 @@ class __$$LocalNamesImplCopyWithImpl<$Res>
       _$LocalNamesImpl _value, $Res Function(_$LocalNamesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocalNames
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3363,7 +3386,7 @@ class _$LocalNamesImpl with DiagnosticableTreeMixin implements _LocalNames {
             (identical(other.ur, ur) || other.ur == ur));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -3517,7 +3540,9 @@ class _$LocalNamesImpl with DiagnosticableTreeMixin implements _LocalNames {
         ur
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocalNames
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocalNamesImplCopyWith<_$LocalNamesImpl> get copyWith =>
@@ -4129,8 +4154,11 @@ abstract class _LocalNames implements LocalNames {
   @override
   @JsonKey(name: 'ur')
   String? get ur;
+
+  /// Create a copy of LocalNames
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocalNamesImplCopyWith<_$LocalNamesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

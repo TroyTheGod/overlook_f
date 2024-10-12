@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:over_look_f/feature/weather/provider/day_progress_notifier.dart';
 
 class RiskOfRain extends StatelessWidget {
   const RiskOfRain({super.key});
@@ -23,21 +25,24 @@ class RiskOfRain extends StatelessWidget {
   }
 }
 
-class _LineChart extends StatelessWidget {
+class _LineChart extends ConsumerWidget {
   final List<double> data;
   final double maxHeight;
 
   const _LineChart({required this.data, required this.maxHeight});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
+    final dayProgress = ref.watch(dayProgressNotifierProvider);
+    final xPosition = dayProgress * width;
     return CustomPaint(
       size: Size(width, maxHeight),
       painter: _LineChartPainter(
         data: data,
         maxHeight: maxHeight,
         color: Colors.black.withOpacity(0.2),
+        xPosition: xPosition,
       ),
     );
   }
@@ -47,11 +52,13 @@ class _LineChartPainter extends CustomPainter {
   final List<double> data;
   final double maxHeight;
   final Color color;
+  final double xPosition;
 
   _LineChartPainter({
     required this.data,
     required this.maxHeight,
     required this.color,
+    required this.xPosition,
   });
 
   @override
@@ -64,7 +71,6 @@ class _LineChartPainter extends CustomPainter {
     Path path = Path();
     double width = size.width / (data.length - 1);
     double verticalLineHeight = -1; // 初始化垂直线高度
-    double mockXPosition = 170;
 
     for (int i = 0; i < data.length; i++) {
       double x = i * width;
@@ -81,14 +87,14 @@ class _LineChartPainter extends CustomPainter {
       }
 
       // 判断垂直线的位置，并记录该位置的y值作为垂直线的高度
-      if (x >= mockXPosition && verticalLineHeight == -1) {
+      if (x >= xPosition && verticalLineHeight == -1) {
         // 获取垂直线位置附近的两个点
         double previousX = (i - 1) * width;
         double previousY = (1 - data[i - 1]) * maxHeight;
         double nextY = y;
 
         // 计算插值
-        double t = (mockXPosition - previousX) / (x - previousX);
+        double t = (xPosition - previousX) / (x - previousX);
         verticalLineHeight = previousY + (nextY - previousY) * t;
       }
 
@@ -127,15 +133,15 @@ class _LineChartPainter extends CustomPainter {
       ..strokeWidth = 2.0;
 
     canvas.drawLine(
-      Offset(mockXPosition, verticalLineHeight), // 从底部水平线开始
-      Offset(mockXPosition, maxHeight + 20), // 到折线图的高度
+      Offset(xPosition, verticalLineHeight), // 从底部水平线开始
+      Offset(xPosition, maxHeight + 20), // 到折线图的高度
       verticalLinePaint,
     );
 
     // 绘制垂直线的点
     canvas.drawCircle(
-      Offset(mockXPosition,
-          verticalLineHeight + 1.5), // +1.5 因为radius = 3， 减一半圆心在折线上
+      Offset(
+          xPosition, verticalLineHeight + 1.5), // +1.5 因为radius = 3， 减一半圆心在折线上
       3.0,
       verticalLinePaint,
     );

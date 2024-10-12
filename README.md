@@ -34,6 +34,7 @@ Geocoding API:
     - [x] draw temperature path
     - [x] draw risk of rain path XD
     - [ ] draggable line(that orange one)
+        - [ ] refactor timeline with slider
   - [ ] select location page
   - [ ] setting page
 - [ ] animation

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:over_look_f/core/constant/dimen.dart';
 
 class DragableLine extends StatelessWidget {
-  const DragableLine({Key? key}) : super(key: key);
+  const DragableLine({super.key});
 
   @override
   Widget build(BuildContext context) {

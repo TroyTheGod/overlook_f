@@ -1,33 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:over_look_f/feature/weather/provider/day_progress_notifier.dart';
 
-class Timeline extends StatelessWidget {
+class Timeline extends ConsumerWidget {
   const Timeline({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return SizedBox(
-      width: screenWidth,
-      height: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          for (int i = 0; i <= 24; i++)
-            _Time(
-              size: i > 12
-                  ? (i - 12 == 6 || i - 12 == 12 || i - 12 == 0)
-                      ? 0
-                      : (i - 12 == 3 || i - 12 == 9)
-                          ? 1
-                          : 2
-                  : (i == 6 || i == 12 || i == 0)
-                      ? 0
-                      : (i == 3 || i == 9)
-                          ? 1
-                          : 2,
-              time: i > 12 ? i - 12 : i,
-            ),
-        ],
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTapDown: (details) {
+        final dayProgress = details.globalPosition.dx / screenWidth;
+        ref
+            .read(dayProgressNotifierProvider.notifier)
+            .setTimePercentage(dayProgress);
+      },
+      onHorizontalDragUpdate: (details) {
+        final dayProgress = details.globalPosition.dx / screenWidth;
+        ref
+            .read(dayProgressNotifierProvider.notifier)
+            .setTimePercentage(dayProgress);
+      },
+      child: SizedBox(
+        width: screenWidth,
+        height: 40.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (int i = 0; i <= 24; i++)
+              _Time(
+                size: i > 12
+                    ? (i - 12 == 6 || i - 12 == 12 || i - 12 == 0)
+                        ? 0
+                        : (i - 12 == 3 || i - 12 == 9)
+                            ? 1
+                            : 2
+                    : (i == 6 || i == 12 || i == 0)
+                        ? 0
+                        : (i == 3 || i == 9)
+                            ? 1
+                            : 2,
+                time: i > 12 ? i - 12 : i,
+              ),
+          ],
+        ),
       ),
     );
   }
