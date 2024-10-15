@@ -114,8 +114,11 @@ class _LineChartPainter extends CustomPainter {
       if (x >= xPosition && verticalLineHeight == -1) {
         // 获取垂直线位置附近的两个点
         double previousX = (i - 1) * width;
-        double previousY =
-            ((highestTemp - data[i - 1]) / (highestTemp - lowestTemp)) *
+        double previousY = i == 0
+            ? ((highestTemp - data[i]) / (highestTemp - lowestTemp)) *
+                    maxHeight -
+                bottomSpacing
+            : ((highestTemp - data[i - 1]) / (highestTemp - lowestTemp)) *
                     maxHeight -
                 bottomSpacing;
         double nextY = y;

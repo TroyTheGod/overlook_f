@@ -1,57 +1,79 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 part 'day_progress_notifier.g.dart';
 
 @riverpod
 class DayProgressNotifier extends _$DayProgressNotifier {
   int? lastHourVibrate;
+  double? lastPercentage;
   List<Range> hourList = [];
+  double timelineBorder = 0;
 
   @override
   double build() {
-    calculateHourList();
     final now = DateTime.now();
     final hour = now.hour;
     return hour / 24;
   }
 
-  void setTimePercentage(double percentage) {
+  void setTimePercentage(double dx, double screenWidth) {
+    getTimelineBorder(screenWidth);
+    double percentage = dx / (screenWidth - timelineBorder);
     state = percentage;
     haptic(percentage);
   }
 
-  void calculateHourList() {
-    for (var i = 0; i < 25; i++) {
-      final range = getOptimizedRange(i / 24);
-      hourList.add(range);
-    }
-  }
-
-  void haptic(double percentage) {
-    double tolerance = 0.01;
-    double progressHour = percentage * 24;
-    int nowHour = DateTime.now().hour;
-
-    if ((progressHour - nowHour).abs() <= tolerance &&
-        lastHourVibrate != nowHour) {
-      HapticFeedback.vibrate();
-      lastHourVibrate = nowHour;
+  void getTimelineBorder(double screenWidth) {
+    if (timelineBorder != 0) {
       return;
     }
-    for (int hour = 0; hour <= 23; hour++) {
-      if ((progressHour - hour).abs() <= tolerance && lastHourVibrate != hour) {
-        HapticFeedback.lightImpact();
-        lastHourVibrate = hour;
-        break;
-      }
+    GlobalObjectKey first = GlobalObjectKey("TimeLineFirst");
+    GlobalObjectKey last = GlobalObjectKey("TimeLineLast");
+    if (first.currentContext != null && last.currentContext != null) {
+      final firstRenderBox =
+          first.currentContext!.findRenderObject() as RenderBox;
+      final lastRenderBox =
+          last.currentContext!.findRenderObject() as RenderBox;
+      final firstOffset = firstRenderBox.localToGlobal(Offset.zero).dx;
+      final lastOffset = lastRenderBox.localToGlobal(Offset.zero).dx;
+      final lastRightDx = lastOffset + lastRenderBox.size.width;
+      timelineBorder = firstOffset + screenWidth - lastRightDx;
     }
   }
 
-  Range<double> getOptimizedRange(double percentage) {
-    final threshold = 0.3;
-    return Range(
-        upper: percentage + 1 / 24 * threshold,
-        lower: percentage - 1 / 24 * threshold);
+// TODO： haptic is not equaly having the same width each area,
+// need to find a new way to line up haptic with time.
+  void haptic(double percentage) {
+    const double tolerance = 1 / 25;
+    final progressHour = percentage * 25;
+    final nowHour = DateTime.now().hour;
+
+    final isSlidingRight =
+        lastPercentage != null && percentage > lastPercentage!;
+
+    bool shouldVibrate(int hour) {
+      if (isSlidingRight) {
+        return (progressHour - hour) >= 0 && (progressHour - hour) <= tolerance;
+      } else {
+        return (hour - progressHour) >= 0 && (hour - progressHour) <= tolerance;
+      }
+    }
+
+    if (shouldVibrate(nowHour) && lastHourVibrate != nowHour) {
+      lastHourVibrate = nowHour;
+      HapticFeedback.vibrate();
+    } else {
+      for (int hour = 0; hour <= 24; hour++) {
+        if (shouldVibrate(hour) && lastHourVibrate != hour) {
+          lastHourVibrate = hour;
+          HapticFeedback.lightImpact();
+          break;
+        }
+      }
+    }
+    lastPercentage = percentage;
   }
 }
 

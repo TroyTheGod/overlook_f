@@ -90,7 +90,8 @@ class _LineChartPainter extends CustomPainter {
       if (x >= xPosition && verticalLineHeight == -1) {
         // 获取垂直线位置附近的两个点
         double previousX = (i - 1) * width;
-        double previousY = (1 - data[i - 1]) * maxHeight;
+        double previousY =
+            i == 0 ? (1 - data[i]) * maxHeight : (1 - data[i - 1]) * maxHeight;
         double nextY = y;
 
         // 计算插值

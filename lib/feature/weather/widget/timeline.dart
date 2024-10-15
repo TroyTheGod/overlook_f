@@ -11,16 +11,14 @@ class Timeline extends ConsumerWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (details) {
-        final dayProgress = details.globalPosition.dx / screenWidth;
         ref
             .read(dayProgressNotifierProvider.notifier)
-            .setTimePercentage(dayProgress);
+            .setTimePercentage(details.globalPosition.dx, screenWidth);
       },
       onHorizontalDragUpdate: (details) {
-        final dayProgress = details.globalPosition.dx / screenWidth;
         ref
             .read(dayProgressNotifierProvider.notifier)
-            .setTimePercentage(dayProgress);
+            .setTimePercentage(details.globalPosition.dx, screenWidth);
       },
       child: SizedBox(
         width: screenWidth,
@@ -42,6 +40,7 @@ class Timeline extends ConsumerWidget {
                             ? 1
                             : 2,
                 time: i > 12 ? i - 12 : i,
+                index: i,
               ),
           ],
         ),
@@ -53,9 +52,11 @@ class Timeline extends ConsumerWidget {
 class _Time extends StatelessWidget {
   final int size; // 0最大，1中，2小
   final int time;
+  final int index;
   const _Time({
     required this.size,
     required this.time,
+    required this.index,
   });
 
   @override
@@ -93,6 +94,11 @@ class _Time extends StatelessWidget {
       children: [
         const Spacer(),
         Container(
+          key: index == 0
+              ? GlobalObjectKey("TimeLineFirst")
+              : index == 24
+                  ? GlobalObjectKey("TimeLineLast")
+                  : null,
           width: width,
           height: height,
           color: Colors.white,
